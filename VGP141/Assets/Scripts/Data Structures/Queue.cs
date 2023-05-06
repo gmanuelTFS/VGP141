@@ -9,7 +9,12 @@ namespace VGP141_22S.DataStructures
         public T Front => _data.First.Value;
         public bool Empty => _data.Count == 0;
         public int Size => _data.Count;
-    
+
+        public Queue()
+        {
+            _data = new LinkedList<T>();
+        }
+
         public void Enqueue(T pValue)
         {
             _data.AddLast(pValue);

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Gi
   m_EditorClassIdentifier: 
   _buildTime: 1
-  _inWorldPrefab: {fileID: 0}
+  _inWorldPrefab: {fileID: 8870990746183797478, guid: 2b4e4471425bf3f4f9079a3656d28ed4,
+    type: 3}
   _buildableType: 0

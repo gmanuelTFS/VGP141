@@ -6,11 +6,11 @@ using UnityEngine;
 public class BuildableData : ScriptableObject
 {
     [SerializeField] private float _buildTime;
-    [SerializeField] private Unit _inWorldPrefab;
+    [SerializeField] private UnitView _inWorldPrefab;
     [SerializeField] private BuildableType _buildableType;
 
     public float BuildTime => _buildTime;
-    public Unit InWorldPrefab => _inWorldPrefab;
+    public UnitView InWorldPrefab => _inWorldPrefab;
     public BuildableType BuildableType => _buildableType;
     public BuildableCategory BuildableCategory => _buildableType.TypeToCategory();
 }

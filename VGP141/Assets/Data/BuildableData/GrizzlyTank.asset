@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: GrizzlyTank
   m_EditorClassIdentifier: 
   _buildTime: 3
-  _inWorldPrefab: {fileID: 0}
+  _inWorldPrefab: {fileID: 8870990746183797478, guid: 65fa6d088bd73504aba8226a35e9f6fe,
+    type: 3}
   _buildableType: 5
