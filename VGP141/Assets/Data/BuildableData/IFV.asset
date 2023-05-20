@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2d52f1ad7d4d5748831e6fef3b6890a, type: 3}
-  m_Name: IVF
+  m_Name: IFV
   m_EditorClassIdentifier: 
   _buildTime: 2
   _inWorldPrefab: {fileID: 8870990746183797478, guid: be545acdab5044e49aaf656b42db6477,
