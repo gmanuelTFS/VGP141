@@ -7,11 +7,13 @@ namespace VGP141_22S
 {
     public class BuildMenu : MonoBehaviour
     {
+        [SerializeField] private BuildMenuButton _buildMenuButtonPrefab;
+        
         private BuildQueue _infantryBuildQueue;
         private BuildQueue _vehicleBuildQueue;
         private BuildQueue _buildingBuildQueue;
         private BuildQueue _defensiveBuildingBuildQueue;
-        // [SerializeField] private List<BuildMenuButton> _menuButtons;
+        private List<BuildMenuButton> _menuButtons;
 
         private void Awake()
         {
@@ -19,11 +21,16 @@ namespace VGP141_22S
             _vehicleBuildQueue = new BuildQueue();
             _buildingBuildQueue = new BuildQueue();
             _defensiveBuildingBuildQueue = new BuildQueue();
+            _menuButtons = new List<BuildMenuButton>(Enum.GetNames(typeof(BuildableType)).Length);
         }
 
         private void Start()
         {
-
+            for (int i = 0; i < _menuButtons.Capacity; i++)
+            {
+                BuildMenuButton button = Instantiate(_buildMenuButtonPrefab, transform);
+                button.Initialize(this, Resources.Load<BuildableData>($"BuildableData/{(BuildableType)i}"));
+            }
         }
 
 
