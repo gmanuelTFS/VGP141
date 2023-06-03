@@ -43,6 +43,8 @@ namespace VGP141_22S.DesignPatterns
             {
                 _observers.Remove(observer);
             }
+            
+            _observersToRemove.Clear();
         }
     }   
 }
