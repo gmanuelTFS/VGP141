@@ -7,11 +7,13 @@ namespace VGP141_22S
 {
     public class BuildMenu : MonoBehaviour
     {
+        [SerializeField] private BuildMenuButton _buildMenuButtonPrefab;
+        
         private BuildQueue _infantryBuildQueue;
         private BuildQueue _vehicleBuildQueue;
         private BuildQueue _buildingBuildQueue;
         private BuildQueue _defensiveBuildingBuildQueue;
-        // [SerializeField] private List<BuildMenuButton> _menuButtons;
+        private List<BuildMenuButton> _menuButtons;
 
         private void Awake()
         {
@@ -19,11 +21,16 @@ namespace VGP141_22S
             _vehicleBuildQueue = new BuildQueue();
             _buildingBuildQueue = new BuildQueue();
             _defensiveBuildingBuildQueue = new BuildQueue();
+            _menuButtons = new List<BuildMenuButton>(Enum.GetNames(typeof(BuildableType)).Length);
         }
 
         private void Start()
         {
-
+            for (int i = 0; i < _menuButtons.Capacity; i++)
+            {
+                BuildMenuButton button = Instantiate(_buildMenuButtonPrefab, transform);
+                button.Initialize(this, Resources.Load<BuildableData>($"BuildableData/{(BuildableType)i}"));
+            }
         }
 
 
@@ -35,21 +42,23 @@ namespace VGP141_22S
             _defensiveBuildingBuildQueue.Update(Time.deltaTime);
         }
 
-        public void CreateBuildRequest(BuildableData pBuildableData)
+        public void CreateBuildRequest(BuildableData pBuildableData, BuildMenuButton pBuildMenuButton)
         {
+            BuildRequest buildRequest = new BuildRequest(pBuildableData);
+            buildRequest.AddObserver(pBuildMenuButton);
             switch (pBuildableData.BuildableCategory)
             {
                 case BuildableCategory.Infantry:
-                    _infantryBuildQueue.AddBuildRequest(new BuildRequest(pBuildableData));
+                    _infantryBuildQueue.AddBuildRequest(buildRequest);
                     break;
                 case BuildableCategory.Vehicle:
-                    _vehicleBuildQueue.AddBuildRequest(new BuildRequest(pBuildableData));
+                    _vehicleBuildQueue.AddBuildRequest(buildRequest);
                     break;
                 case BuildableCategory.Building:
-                    _buildingBuildQueue.AddBuildRequest(new BuildRequest(pBuildableData));
+                    _buildingBuildQueue.AddBuildRequest(buildRequest);
                     break;
                 case BuildableCategory.DefensiveBuilding:
-                    _defensiveBuildingBuildQueue.AddBuildRequest(new BuildRequest(pBuildableData));
+                    _defensiveBuildingBuildQueue.AddBuildRequest(buildRequest);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

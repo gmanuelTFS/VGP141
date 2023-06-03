@@ -15,4 +15,4 @@ MonoBehaviour:
   _buildTime: 2
   _inWorldPrefab: {fileID: 8870990746183797478, guid: be545acdab5044e49aaf656b42db6477,
     type: 3}
-  _buildableType: 6
+  _buildableType: 3

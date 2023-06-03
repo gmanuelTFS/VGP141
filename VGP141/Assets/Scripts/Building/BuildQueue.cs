@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using VGP141_22S.DesignPatterns;
 
 namespace VGP141_22S
 {
-    public class BuildQueue
+    public class BuildQueue : IObserver
     {
         private DataStructures.Queue<BuildRequest> _buildRequestQueue;
 
@@ -25,33 +26,39 @@ namespace VGP141_22S
             BuildRequest currentRequest = _buildRequestQueue.Front;
 
             // Update it's remaining time
-            currentRequest.RemainingBuildTime -= pDeltaTime;
-            if (currentRequest.RemainingBuildTime < 0)
-            {
-                currentRequest.RemainingBuildTime = 0;
-            }
-
-            // If there is remaining time, we're done in this frame
-            if (currentRequest.RemainingBuildTime > 0)
-            {
-                return;
-            }
-            
-            // Dequeue the request
-            _buildRequestQueue.Dequeue();
-            
-            // Spawn the unit/notify something to spawn the unit
-            BuildRequestComplete(currentRequest);
+            currentRequest.ModifyRemainingTime(pDeltaTime);
         }
         
         public void AddBuildRequest(BuildRequest pBuildRequest)
         {
+            pBuildRequest.AddObserver(this);
             _buildRequestQueue.Enqueue(pBuildRequest);
         }
 
         private void BuildRequestComplete(BuildRequest pBuildRequest)
         {
+            // Remove ourselves as an observer
+            pBuildRequest.RemoveObserver(this);
+            
+            // Dequeue the request
+            _buildRequestQueue.Dequeue();
+            
             Debug.Log($"BuildRequest for {pBuildRequest.BuildableData.BuildableType} was completed.");
+        }
+
+        public void Notify(string pMessage)
+        {
+            
+        }
+
+        public void Notify<T>(string pMessage, T pData)
+        {
+            switch (pMessage)
+            {
+                case Notifications.BUILD_REQUEST_COMPLETED when pData is BuildRequest buildRequest:
+                    BuildRequestComplete(buildRequest);
+                    break;
+            }
         }
     }   
 }
