@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2d52f1ad7d4d5748831e6fef3b6890a, type: 3}
-  m_Name: GrizzlyTank
+  m_Name: ConstructionYard
   m_EditorClassIdentifier: 
-  _buildTime: 3
-  _inWorldPrefab: {fileID: 8870990746183797478, guid: 65fa6d088bd73504aba8226a35e9f6fe,
+  _buildTime: 2
+  _inWorldPrefab: {fileID: 8870990746183797478, guid: 916dc81d25c37a043bcaa2cfc38889c2,
     type: 3}
-  _buildableType: 2
+  _buildableCategory: {fileID: 11400000, guid: 41fa6d3b336af2642980d30cffa5bfc0, type: 2}
