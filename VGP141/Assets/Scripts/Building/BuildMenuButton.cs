@@ -17,14 +17,15 @@ namespace VGP141_22S
         [SerializeField] private TextMeshProUGUI _label;
         
         private BuildMenu _buildMenu;
-        private BuildableData _buildableData;
+
+        public BuildableData BuildableData { get; private set; }
 
         public void Initialize(BuildMenu pBuildMenu, BuildableData pBuildableData)
         {
             _buildMenu = pBuildMenu;
-            _buildableData = pBuildableData;
+            BuildableData = pBuildableData;
             _button.onClick.AddListener(OnClick);
-            _label.text = _buildableData.PlayerFacingName;
+            _label.text = BuildableData.PlayerFacingName;
         }
 
         private void UpdateVisuals(float pRemainingPercentage)
@@ -39,7 +40,7 @@ namespace VGP141_22S
             _fillImage.fillAmount = 1;
             // TODO: Deal with build count
             // Either tell the build menu to create a request or create the request ourselves
-            _buildMenu.CreateBuildRequest(_buildableData, this);
+            _buildMenu.CreateBuildRequest(BuildableData, this);
         }
 
         public void Notify(string pMessage)
@@ -52,7 +53,7 @@ namespace VGP141_22S
             switch (pMessage)
             {
                 case Notifications.BUILD_REQUEST_REMAINING_TIME_UPDATED when pData is float remainingTime:
-                    UpdateVisuals(remainingTime / _buildableData.BuildTime);
+                    UpdateVisuals(remainingTime / BuildableData.BuildTime);
                     break;
                 case Notifications.BUILD_REQUEST_COMPLETED:
                     UpdateVisuals(0);

@@ -10,7 +10,20 @@ namespace VGP141_22S
         private Dictionary<BuildableCategory, BuildQueue> _buildQueueMap;
         private List<BuildMenuButton> _menuButtons;
         private TechTree _techTree;
-
+        
+        public void CreateBuildRequest(BuildableData pBuildableData, BuildMenuButton pBuildMenuButton)
+        {
+            BuildRequest buildRequest = new(pBuildableData);
+            buildRequest.AddObserver(pBuildMenuButton);
+            if (!_buildQueueMap.TryGetValue(pBuildableData.BuildableCategory, out BuildQueue buildQueue))
+            {
+                Debug.LogError($"{nameof(BuildableCategory)} named {pBuildableData.BuildableCategory} is not handled by {nameof(CreateBuildRequest)}");
+                return;
+            }
+            
+            buildQueue.AddBuildRequest(buildRequest);
+        }
+        
         private void Awake()
         {
             _buildQueueMap = new Dictionary<BuildableCategory, BuildQueue>();
@@ -35,9 +48,9 @@ namespace VGP141_22S
             }
             
             _techTree = new TechTree(allPossibleBuildableData);
+            Refresh();
         }
-
-
+        
         private void Update()
         {
             foreach (BuildQueue buildQueue in _buildQueueMap.Values)
@@ -46,17 +59,13 @@ namespace VGP141_22S
             }
         }
 
-        public void CreateBuildRequest(BuildableData pBuildableData, BuildMenuButton pBuildMenuButton)
+        private void Refresh()
         {
-            BuildRequest buildRequest = new(pBuildableData);
-            buildRequest.AddObserver(pBuildMenuButton);
-            if (!_buildQueueMap.TryGetValue(pBuildableData.BuildableCategory, out BuildQueue buildQueue))
+            foreach (BuildMenuButton buildMenuButton in _menuButtons)
             {
-                Debug.LogError($"{nameof(BuildableCategory)} named {pBuildableData.BuildableCategory} is not handled by {nameof(CreateBuildRequest)}");
-                return;
+                // Enable/disable based on dependencies
+                buildMenuButton.gameObject.SetActive(_techTree.CheckDependencies(buildMenuButton.BuildableData));
             }
-            
-            buildQueue.AddBuildRequest(buildRequest);
         }
     }   
 }
