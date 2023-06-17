@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d52f1ad7d4d5748831e6fef3b6890a, type: 3}
+  m_Name: Pillbox
+  m_EditorClassIdentifier: 
+  _buildTime: 3
+  _inWorldPrefab: {fileID: 8870990746183797478, guid: cbb48673bb0afde439a3fecf552dcc1e,
+    type: 3}
+  _buildableCategory: {fileID: 11400000, guid: 2c8760acb5db06f46833bde982624d35, type: 2}
+  _buildDependencies:
+  - {fileID: 11400000, guid: 1a0c05c473f56154ab338f7dfa52e642, type: 2}

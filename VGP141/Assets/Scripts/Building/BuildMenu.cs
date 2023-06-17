@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,61 +6,57 @@ namespace VGP141_22S
     public class BuildMenu : MonoBehaviour
     {
         [SerializeField] private BuildMenuButton _buildMenuButtonPrefab;
-        
-        private BuildQueue _infantryBuildQueue;
-        private BuildQueue _vehicleBuildQueue;
-        private BuildQueue _buildingBuildQueue;
-        private BuildQueue _defensiveBuildingBuildQueue;
+
+        private Dictionary<BuildableCategory, BuildQueue> _buildQueueMap;
         private List<BuildMenuButton> _menuButtons;
+        private TechTree _techTree;
 
         private void Awake()
         {
-            _infantryBuildQueue = new BuildQueue();
-            _vehicleBuildQueue = new BuildQueue();
-            _buildingBuildQueue = new BuildQueue();
-            _defensiveBuildingBuildQueue = new BuildQueue();
-            _menuButtons = new List<BuildMenuButton>(Enum.GetNames(typeof(BuildableType)).Length);
+            _buildQueueMap = new Dictionary<BuildableCategory, BuildQueue>();
+            _menuButtons = new List<BuildMenuButton>();
         }
 
         private void Start()
         {
-            for (int i = 0; i < _menuButtons.Capacity; i++)
+            HashSet<BuildableData> allPossibleBuildableData = new();
+            BuildableCategory[] buildableCategories = Resources.LoadAll<BuildableCategory>(nameof(BuildableCategory));
+            foreach (BuildableCategory buildableCategory in buildableCategories)
             {
-                BuildMenuButton button = Instantiate(_buildMenuButtonPrefab, transform);
-                button.Initialize(this, Resources.Load<BuildableData>($"BuildableData/{(BuildableType)i}"));
+                _buildQueueMap.Add(buildableCategory, new BuildQueue());
+                BuildableData[] buildableData = Resources.LoadAll<BuildableData>($"{nameof(BuildableData)}/{buildableCategory.name}");
+                allPossibleBuildableData.UnionWith(buildableData);
+                foreach (BuildableData data in buildableData)
+                {
+                    BuildMenuButton button = Instantiate(_buildMenuButtonPrefab, transform);
+                    button.Initialize(this, data);
+                    _menuButtons.Add(button);
+                }
             }
+            
+            _techTree = new TechTree(allPossibleBuildableData);
         }
 
 
         private void Update()
         {
-            _infantryBuildQueue.Update(Time.deltaTime);
-            _vehicleBuildQueue.Update(Time.deltaTime);
-            _buildingBuildQueue.Update(Time.deltaTime);
-            _defensiveBuildingBuildQueue.Update(Time.deltaTime);
+            foreach (BuildQueue buildQueue in _buildQueueMap.Values)
+            {
+                buildQueue.Update(Time.deltaTime);
+            }
         }
 
         public void CreateBuildRequest(BuildableData pBuildableData, BuildMenuButton pBuildMenuButton)
         {
-            BuildRequest buildRequest = new BuildRequest(pBuildableData);
+            BuildRequest buildRequest = new(pBuildableData);
             buildRequest.AddObserver(pBuildMenuButton);
-            switch (pBuildableData.BuildableCategory)
+            if (!_buildQueueMap.TryGetValue(pBuildableData.BuildableCategory, out BuildQueue buildQueue))
             {
-                case BuildableCategory.Infantry:
-                    _infantryBuildQueue.AddBuildRequest(buildRequest);
-                    break;
-                case BuildableCategory.Vehicle:
-                    _vehicleBuildQueue.AddBuildRequest(buildRequest);
-                    break;
-                case BuildableCategory.Building:
-                    _buildingBuildQueue.AddBuildRequest(buildRequest);
-                    break;
-                case BuildableCategory.DefensiveBuilding:
-                    _defensiveBuildingBuildQueue.AddBuildRequest(buildRequest);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                Debug.LogError($"{nameof(BuildableCategory)} named {pBuildableData.BuildableCategory} is not handled by {nameof(CreateBuildRequest)}");
+                return;
             }
+            
+            buildQueue.AddBuildRequest(buildRequest);
         }
     }   
 }

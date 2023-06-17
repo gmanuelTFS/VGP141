@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using VGP141_22S.DesignPatterns;
 
 namespace VGP141_22S
@@ -43,7 +40,7 @@ namespace VGP141_22S
             // Dequeue the request
             _buildRequestQueue.Dequeue();
             
-            Debug.Log($"BuildRequest for {pBuildRequest.BuildableData.BuildableType} was completed.");
+            Debug.Log($"BuildRequest for {pBuildRequest.BuildableData.name} was completed.");
         }
 
         public void Notify(string pMessage)

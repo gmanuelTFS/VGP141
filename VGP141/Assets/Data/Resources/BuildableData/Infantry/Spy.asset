@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d52f1ad7d4d5748831e6fef3b6890a, type: 3}
+  m_Name: Spy
+  m_EditorClassIdentifier: 
+  _buildTime: 2
+  _inWorldPrefab: {fileID: 8870990746183797478, guid: 156b2bd101333fe4d8bacebd1a3b6556,
+    type: 3}
+  _buildableCategory: {fileID: 11400000, guid: 2f305561bf5ea8f41b836e4a275f1d38, type: 2}
+  _buildDependencies:
+  - {fileID: 11400000, guid: d3f3dc7eebbfd7b42abde2f9950940c5, type: 2}

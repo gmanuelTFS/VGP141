@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2d52f1ad7d4d5748831e6fef3b6890a, type: 3}
-  m_Name: Gi
+  m_Name: Engineer
   m_EditorClassIdentifier: 
   _buildTime: 1
-  _inWorldPrefab: {fileID: 8870990746183797478, guid: 2b4e4471425bf3f4f9079a3656d28ed4,
+  _inWorldPrefab: {fileID: 8870990746183797478, guid: a1a6e31f1f69f1b489a0b65abde674ca,
     type: 3}
-  _buildableType: 0
+  _buildableCategory: {fileID: 11400000, guid: 2f305561bf5ea8f41b836e4a275f1d38, type: 2}
+  _buildDependencies:
+  - {fileID: 11400000, guid: 1a0c05c473f56154ab338f7dfa52e642, type: 2}
