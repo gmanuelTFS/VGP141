@@ -37,7 +37,7 @@ namespace VGP141_22S
                 return false;
             }
 	
-            if (CheckDependencies(pBuildableData))
+            if (!CheckDependencies(pBuildableData))
             {
                 Debug.LogError($"Cannot build {pBuildableData.PlayerFacingName}. Missing dependencies:");
                 PrintMissingDependencies(pBuildableData);

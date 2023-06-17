@@ -58,6 +58,14 @@ namespace VGP141_22S
                 case Notifications.BUILD_REQUEST_COMPLETED:
                     UpdateVisuals(0);
                     break;
+                // We only want to do anything if the data is a buildable data and is OUR buildable data
+                case Notifications.BUILD_PROCESS_START when pData is BuildableData buildableData && buildableData == BuildableData:
+                    if (!buildableData.BuildableCategory.IsBuilding)
+                    {
+                        break;
+                    }
+                    // TODO: Turn on the ready state
+                    break;
             }
         }
     }

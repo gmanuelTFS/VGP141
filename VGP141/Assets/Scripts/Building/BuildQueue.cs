@@ -3,7 +3,7 @@ using VGP141_22S.DesignPatterns;
 
 namespace VGP141_22S
 {
-    public class BuildQueue : IObserver
+    public class BuildQueue : Subject, IObserver
     {
         private DataStructures.Queue<BuildRequest> _buildRequestQueue;
 
@@ -41,6 +41,7 @@ namespace VGP141_22S
             _buildRequestQueue.Dequeue();
             
             Debug.Log($"BuildRequest for {pBuildRequest.BuildableData.name} was completed.");
+            NotifyObservers(Notifications.BUILD_PROCESS_START, pBuildRequest.BuildableData);
         }
 
         public void Notify(string pMessage)

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VGP141_22S.DesignPatterns;
 
 namespace VGP141_22S
 {
-    public class BuildMenu : MonoBehaviour
+    public class BuildMenu : MonoBehaviour, IObserver
     {
         [SerializeField] private BuildMenuButton _buildMenuButtonPrefab;
 
@@ -23,6 +24,25 @@ namespace VGP141_22S
             
             buildQueue.AddBuildRequest(buildRequest);
         }
+
+        public void Notify(string pMessage)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Notify<T>(string pMessage, T pData)
+        {
+            switch (pMessage)
+            {
+                // TODO: This will likely create the build strategy for buildings
+                case Notifications.BUILD_PROCESS_START when pData is BuildableData buildableData && buildableData.BuildableCategory.IsBuilding:
+                    break;
+                // TODO: Build menu will need to observe something for this
+                case Notifications.BUILD_PROCESS_FINISH when pData is BuildableData:
+                    Refresh();
+                    break;
+            }
+        }
         
         private void Awake()
         {
@@ -36,14 +56,18 @@ namespace VGP141_22S
             BuildableCategory[] buildableCategories = Resources.LoadAll<BuildableCategory>(nameof(BuildableCategory));
             foreach (BuildableCategory buildableCategory in buildableCategories)
             {
-                _buildQueueMap.Add(buildableCategory, new BuildQueue());
+                BuildQueue categoryBuildQueue = new();
+                categoryBuildQueue.AddObserver(this);
+                _buildQueueMap.Add(buildableCategory, categoryBuildQueue);
                 BuildableData[] buildableData = Resources.LoadAll<BuildableData>($"{nameof(BuildableData)}/{buildableCategory.name}");
                 allPossibleBuildableData.UnionWith(buildableData);
                 foreach (BuildableData data in buildableData)
                 {
                     BuildMenuButton button = Instantiate(_buildMenuButtonPrefab, transform);
                     button.Initialize(this, data);
+                    button.name = $"{data.PlayerFacingName}BuildMenuButton";
                     _menuButtons.Add(button);
+                    categoryBuildQueue.AddObserver(button);
                 }
             }
             
