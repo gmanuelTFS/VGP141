@@ -6,7 +6,7 @@ namespace VGP141_22S
     public class TechTree
     {
         /// <summary>
-        /// Tracks how many of each BuildableData is current in existence
+        /// Tracks how many of each BuildableData is currently in existence
         /// </summary>
         private readonly Dictionary<BuildableData, uint> _buildCounts;
 
@@ -55,12 +55,7 @@ namespace VGP141_22S
         public bool TryDestroy(BuildableData pBuildableData)
         {
             // check if already built
-            if (!_buildCounts.TryGetValue(pBuildableData, out uint buildCount))
-            {
-                return false;
-            }
-
-            if (buildCount == 0)
+            if (!_buildCounts.TryGetValue(pBuildableData, out uint buildCount) || buildCount == 0)
             {
                 return false;
             }
