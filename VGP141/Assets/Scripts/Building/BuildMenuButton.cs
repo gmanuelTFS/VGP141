@@ -15,6 +15,7 @@ namespace VGP141_22S
         [SerializeField] private Image _fillImage;
         [SerializeField] private Button _button;
         [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private GameObject _readyState;
         
         private BuildMenu _buildMenu;
 
@@ -35,6 +36,11 @@ namespace VGP141_22S
 
         private void OnClick()
         {
+            if (_readyState.activeSelf)
+            {
+                // TODO: If the ready state is active, handle it
+                return;
+            }
             // TODO: if we have a max build amount, we should check it here
             // Update any visuals appropriately
             _fillImage.fillAmount = 1;
@@ -64,9 +70,15 @@ namespace VGP141_22S
                     {
                         break;
                     }
-                    // TODO: Turn on the ready state
+
+                    SetReadyStateEnabled(true);
                     break;
             }
+        }
+
+        private void SetReadyStateEnabled(bool pEnabled)
+        {
+            _readyState.SetActive(pEnabled);
         }
     }
 }
