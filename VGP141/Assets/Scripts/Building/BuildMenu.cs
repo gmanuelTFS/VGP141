@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +9,7 @@ namespace VGP141_22S
 
         private Dictionary<BuildableCategory, BuildQueue> _buildQueueMap;
         private List<BuildMenuButton> _menuButtons;
+        private TechTree _techTree;
 
         private void Awake()
         {
@@ -20,11 +19,13 @@ namespace VGP141_22S
 
         private void Start()
         {
+            HashSet<BuildableData> allPossibleBuildableData = new();
             BuildableCategory[] buildableCategories = Resources.LoadAll<BuildableCategory>(nameof(BuildableCategory));
             foreach (BuildableCategory buildableCategory in buildableCategories)
             {
                 _buildQueueMap.Add(buildableCategory, new BuildQueue());
                 BuildableData[] buildableData = Resources.LoadAll<BuildableData>($"{nameof(BuildableData)}/{buildableCategory.name}");
+                allPossibleBuildableData.UnionWith(buildableData);
                 foreach (BuildableData data in buildableData)
                 {
                     BuildMenuButton button = Instantiate(_buildMenuButtonPrefab, transform);
@@ -32,6 +33,8 @@ namespace VGP141_22S
                     _menuButtons.Add(button);
                 }
             }
+            
+            _techTree = new TechTree(allPossibleBuildableData);
         }
 
 
@@ -45,7 +48,7 @@ namespace VGP141_22S
 
         public void CreateBuildRequest(BuildableData pBuildableData, BuildMenuButton pBuildMenuButton)
         {
-            BuildRequest buildRequest = new BuildRequest(pBuildableData);
+            BuildRequest buildRequest = new(pBuildableData);
             buildRequest.AddObserver(pBuildMenuButton);
             if (!_buildQueueMap.TryGetValue(pBuildableData.BuildableCategory, out BuildQueue buildQueue))
             {
