@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VGP141_22S.DesignPatterns;
 
 namespace VGP141_22S
 {
-    public class TechTree
+    public class TechTree : IObserver
     {
         /// <summary>
         /// Tracks how many of each BuildableData is currently in existence
@@ -96,6 +97,21 @@ namespace VGP141_22S
                 // parent not found; dependency check failed
                 Debug.LogError(dependency.PlayerFacingName);
                 PrintMissingDependencies(dependency);
+            }
+        }
+
+        public void Notify(string pMessage)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Notify<T>(string pMessage, T pData)
+        {
+            switch (pMessage)
+            {
+                case Notifications.BUILDABLE_BUILT when pData is BuildableData buildableData:
+                    TryBuild(buildableData);
+                    break;
             }
         }
     }

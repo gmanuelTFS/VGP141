@@ -4,4 +4,5 @@ public static class Notifications
     public const string BUILD_REQUEST_COMPLETED = "buildRequestCompleted";
     public const string BUILD_PROCESS_START = "buildProcessStart";
     public const string BUILD_PROCESS_FINISH = "buildProcessFinish";
+    public const string BUILDABLE_BUILT = "buildableBuilt";
 }
