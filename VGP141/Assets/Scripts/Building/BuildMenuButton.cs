@@ -15,6 +15,7 @@ namespace VGP141_22S
         [SerializeField] private Image _fillImage;
         [SerializeField] private Button _button;
         [SerializeField] private TextMeshProUGUI _label;
+        [SerializeField] private GameObject _readyState;
         
         private BuildMenu _buildMenu;
 
@@ -35,6 +36,11 @@ namespace VGP141_22S
 
         private void OnClick()
         {
+            if (_readyState.activeSelf)
+            {
+                _buildMenu.StartBuildProcess(BuildableData);
+                return;
+            }
             // TODO: if we have a max build amount, we should check it here
             // Update any visuals appropriately
             _fillImage.fillAmount = 1;
@@ -55,18 +61,34 @@ namespace VGP141_22S
                 case Notifications.BUILD_REQUEST_REMAINING_TIME_UPDATED when pData is float remainingTime:
                     UpdateVisuals(remainingTime / BuildableData.BuildTime);
                     break;
-                case Notifications.BUILD_REQUEST_COMPLETED:
+                case Notifications.BUILD_REQUEST_COMPLETED when pData is BuildRequest buildRequest && buildRequest.BuildableData == BuildableData:
                     UpdateVisuals(0);
+                    
+                    // Only set the ready state if our buildableData is a building
+                    if (!buildRequest.BuildableData.BuildableCategory.IsBuilding)
+                    {
+                        _buildMenu.StartBuildProcess(BuildableData);
+                        break;
+                    }
+
+                    SetReadyStateEnabled(true);
                     break;
                 // We only want to do anything if the data is a buildable data and is OUR buildable data
-                case Notifications.BUILD_PROCESS_START when pData is BuildableData buildableData && buildableData == BuildableData:
+                case Notifications.BUILDABLE_BUILT when pData is BuildableData buildableData && buildableData == BuildableData:
+                    // Only reset the ready state if our buildableData is a building
                     if (!buildableData.BuildableCategory.IsBuilding)
                     {
                         break;
                     }
-                    // TODO: Turn on the ready state
+
+                    SetReadyStateEnabled(false);
                     break;
             }
+        }
+
+        private void SetReadyStateEnabled(bool pEnabled)
+        {
+            _readyState.SetActive(pEnabled);
         }
     }
 }

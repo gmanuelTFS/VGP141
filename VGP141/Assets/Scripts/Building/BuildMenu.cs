@@ -11,7 +11,8 @@ namespace VGP141_22S
         private Dictionary<BuildableCategory, BuildQueue> _buildQueueMap;
         private List<BuildMenuButton> _menuButtons;
         private TechTree _techTree;
-        
+        private BuildingPlacer _buildingPlacer;
+
         public void CreateBuildRequest(BuildableData pBuildableData, BuildMenuButton pBuildMenuButton)
         {
             BuildRequest buildRequest = new(pBuildableData);
@@ -25,6 +26,14 @@ namespace VGP141_22S
             buildQueue.AddBuildRequest(buildRequest);
         }
 
+        public void StartBuildProcess(BuildableData pBuildableData)
+        {
+            if (pBuildableData.BuildableCategory.IsBuilding)
+            {
+                _buildingPlacer.StartPlacement(pBuildableData);
+            }
+        }
+
         public void Notify(string pMessage)
         {
             throw new System.NotImplementedException();
@@ -34,11 +43,7 @@ namespace VGP141_22S
         {
             switch (pMessage)
             {
-                // TODO: This will likely create the build strategy for buildings
-                case Notifications.BUILD_PROCESS_START when pData is BuildableData buildableData && buildableData.BuildableCategory.IsBuilding:
-                    break;
-                // TODO: Build menu will need to observe something for this
-                case Notifications.BUILD_PROCESS_FINISH when pData is BuildableData:
+                case Notifications.BUILD_PROCESS_FINISH when pData is BuildableView:
                     Refresh();
                     break;
             }
@@ -48,10 +53,12 @@ namespace VGP141_22S
         {
             _buildQueueMap = new Dictionary<BuildableCategory, BuildQueue>();
             _menuButtons = new List<BuildMenuButton>();
+            _buildingPlacer = new BuildingPlacer(new AutoBuildingPlacementStrategy());
         }
 
         private void Start()
         {
+            _buildingPlacer.AddObserver(this);
             HashSet<BuildableData> allPossibleBuildableData = new();
             BuildableCategory[] buildableCategories = Resources.LoadAll<BuildableCategory>(nameof(BuildableCategory));
             foreach (BuildableCategory buildableCategory in buildableCategories)
@@ -68,10 +75,12 @@ namespace VGP141_22S
                     button.name = $"{data.PlayerFacingName}BuildMenuButton";
                     _menuButtons.Add(button);
                     categoryBuildQueue.AddObserver(button);
+                    _buildingPlacer.AddObserver(button);
                 }
             }
             
             _techTree = new TechTree(allPossibleBuildableData);
+            _buildingPlacer.AddObserver(_techTree);
             Refresh();
         }
         
