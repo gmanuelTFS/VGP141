@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GrizzlyTank
   m_EditorClassIdentifier: 
   _buildTime: 2
-  _buildableView: {fileID: 0}
-  _buildableType: 0
-  _playerFacingName: 
-  _cost: 0
+  _buildableView: {fileID: -8708444275521701511, guid: eaacd803bd683f84d80dd7cc1c21c128,
+    type: 3}
+  _buildableType: 1
+  _playerFacingName: Grizzly Tank
+  _cost: 500
