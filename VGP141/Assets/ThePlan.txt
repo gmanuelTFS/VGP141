@@ -1,0 +1,33 @@
+Build different units into the world
+Some way to trigger the building
+Units needed to be put into a queue
+Units need to be built 1 at a time
+
+visually representing the build progress
+
+Track build progress (how long it's been OR how long is left)
+
+DONE	UnitData
+	- build time
+	- UnitView to spawn
+
+DONE	UnitView
+	- All the in-scene Unity stuff
+
+BuildQueue
+- FIFO
+- Holds all queued BuildOrders
+- Add a BuildOrder for a unit
+- Update current BuildOrder progess
+- Spawn UnitView when BuildOrder is complete
+
+BuildOrder
+- hold the unit data to build
+- hold the current build progress
+
+Build button
+- click this to add unit to build queue
+- hold a reference to the BuildData that this button can build
+
+Build menu
+- holds all the build buttons
