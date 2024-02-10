@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AttackDog
   m_EditorClassIdentifier: 
   _baseBuildTime: 1.5
-  _view: {fileID: 0}
+  _view: {fileID: 7304994643766979947, guid: 3df86e3252eb6cb4595109283c9f7e07, type: 3}

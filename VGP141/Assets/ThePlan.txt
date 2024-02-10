@@ -5,25 +5,24 @@ Units need to be built 1 at a time
 
 visually representing the build progress
 
-Track build progress (how long it's been OR how long is left)
+DONE	Track build progress (how long it's been OR how long is left)
 
 DONE	UnitData
-	- build time
-	- UnitView to spawn
+		- build time
+		- UnitView to spawn
 
 DONE	UnitView
-	- All the in-scene Unity stuff
+		- All the in-scene Unity stuff
 
-BuildQueue
-- FIFO
-- Holds all queued BuildOrders
-- Add a BuildOrder for a unit
-- Update current BuildOrder progess
-- Spawn UnitView when BuildOrder is complete
+DONE	BuildQueue
+		- Holds all queued BuildRequests
+		- Add a BuildRequest for a unit
+		- Update current BuildRequest progess
+		- Spawn UnitView when BuildRequest is complete
 
-BuildOrder
-- hold the unit data to build
-- hold the current build progress
+DONE	BuildRequest
+		- hold the unit data to build
+		- hold the current build progress
 
 Build button
 - click this to add unit to build queue
