@@ -1,0 +1,17 @@
+Week 2
+Build a RTS build queue
+Requirements:
+- Single queue
+	- What will be in the actual queue?
+		- Time left to build the unit
+		- What unit to build
+			- Enum of unit types
+- Atleast 2 types of units
+	- configurable build times
+	- different in-game visual
+- Some sort of interface for the player to add to queue
+	- could be a menu with buttons
+	- could be an actual object in the 3D/2D world
+- Some sort of visual representing the progress
+	- could be a button effect
+	- could be scaling up of the units themselves
