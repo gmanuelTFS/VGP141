@@ -15,3 +15,9 @@ Requirements:
 - Some sort of visual representing the progress
 	- could be a button effect
 	- could be scaling up of the units themselves
+
+Week 3
+DONE - Get the build queue to actually build each request over time
+DONE - Create some way of associating a unit type with a build time and unit visual
+DONE - Change BuildRequest to hold a BuildableData
+- UnitType and buildable buildings need to be reconciled

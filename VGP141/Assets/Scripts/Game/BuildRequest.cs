@@ -6,19 +6,19 @@ namespace Game
 {
     public class BuildRequest
     {
-        public readonly UnitType UnitType;
+        public readonly Data.BuildableData BuildableData;
         public float RemainingBuildTime;
 
-        public BuildRequest(UnitType unitType, float remainingBuildTime)
+        public BuildRequest(Data.BuildableData buildableData)
         {
-            UnitType = unitType;
-            RemainingBuildTime = remainingBuildTime;
+            BuildableData = buildableData;
+            RemainingBuildTime = buildableData.BuildTime;
         }
 
         public override string ToString()
         {
             return $"{nameof(BuildRequest)}: " +
-                $"{nameof(UnitType)}: {UnitType}, " +
+                $"{nameof(BuildableData)}: {BuildableData}, " +
                 $"{nameof(RemainingBuildTime)}: {RemainingBuildTime}";
         }
     }
