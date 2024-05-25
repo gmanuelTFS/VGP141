@@ -21,3 +21,11 @@ DONE - Get the build queue to actually build each request over time
 DONE - Create some way of associating a unit type with a build time and unit visual
 DONE - Change BuildRequest to hold a BuildableData
 - UnitType and buildable buildings need to be reconciled
+
+Week 5
+DONE - Create a menu button for each buildable
+    DONE - Visually represent the buildable (either name or icon)
+    DONE - When clicked, add a build request to the build queue
+    DONE - As progress increases, update the visuals to reflect the progress
+DONE - Create a build menu to house all the menu buttons
+- Instantiate the buildable in the scene

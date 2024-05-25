@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f0772f0df8fee44815db5846e480ac, type: 3}
   m_Name: RhinoTankBuildableData
   m_EditorClassIdentifier: 
+  _playerFacingName: Rhino Tank
   _unitType: 1
   _buildTime: 3
   _viewPrefab: {fileID: -7314493375058221863, guid: a85a81ba9298f6244b2b59601163c1f5,
