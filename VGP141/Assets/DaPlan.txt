@@ -29,3 +29,21 @@ DONE - Create a menu button for each buildable
     DONE - As progress increases, update the visuals to reflect the progress
 DONE - Create a build menu to house all the menu buttons
 - Instantiate the buildable in the scene
+
+Week 7
+DONE - Instantiate the buildable in the scene
+DONE - Create buildables for all RA2 buildables
+DONE - Count indicator on menu button for how many of that buildable is in the queue
+DONE - Create dependency tree for buidables
+DONE - Build the menu based on that tree
+- Track when things get built
+- Update the menu when things get built
+DONE - Thing that tracks buildable counts
+    - Holds a HashSet of buildable data
+    - It would be both a Subject and Observer
+        - It would observe the thing that builds/places a buildable
+        - Anything that needs to know when something is built would observe this thing
+- Buildings built will be in a ready state in the build menu
+    - This simply means that the player can now place the building in the world
+    - So whatever is tracking what we have built, probably should not be tied to what actually "builds/places" the buildable
+        - Let's go with the Observer pattern because it will give us flexible communication between objects

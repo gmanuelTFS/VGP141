@@ -12,9 +12,13 @@ namespace Game.Data
         [SerializeField] private float _buildTime;
         [SerializeField] private BuildableView _viewPrefab;
 
-        public string PlayerFacingName => string.IsNullOrEmpty(_playerFacingName) ? name.Replace("BuildableData", "") : _playerFacingName;
+        [Header("Dependencies")] 
+        [SerializeField] private BuildableData[] _dependencies;
+
+        public string PlayerFacingName => string.IsNullOrEmpty(_playerFacingName) ? name.Replace("BD", "") : _playerFacingName;
         public UnitType UnitType => _unitType;
         public float BuildTime => _buildTime;
         public BuildableView ViewPrefab => _viewPrefab;
+        public BuildableData[] Dependencies => _dependencies;
     }
 }

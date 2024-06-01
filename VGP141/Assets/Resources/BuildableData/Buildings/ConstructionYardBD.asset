@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87f0772f0df8fee44815db5846e480ac, type: 3}
-  m_Name: RhinoTankBuildableData
+  m_Name: ConstructionYardBD
   m_EditorClassIdentifier: 
-  _playerFacingName: Rhino Tank
-  _unitType: 1
+  _playerFacingName: Construction Yard
+  _unitType: 0
   _buildTime: 3
-  _viewPrefab: {fileID: -7314493375058221863, guid: a85a81ba9298f6244b2b59601163c1f5,
+  _viewPrefab: {fileID: 5430595971753950234, guid: 181e3b0de9be4df4a81d6e2bbc4738fa,
     type: 3}

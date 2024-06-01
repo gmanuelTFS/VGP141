@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87f0772f0df8fee44815db5846e480ac, type: 3}
-  m_Name: ConscriptBuildableData
+  m_Name: FlackTrackBD
   m_EditorClassIdentifier: 
+  _playerFacingName: 
   _unitType: 0
-  _buildTime: 1
-  _viewPrefab: {fileID: 8382213688608663498, guid: 4c416719775ba564b968471f308a7889,
+  _buildTime: 1.5
+  _viewPrefab: {fileID: -7314493375058221863, guid: 78487c682b81f2f469b0ecc24c5f7fac,
     type: 3}
+  _dependencies:
+  - {fileID: 11400000, guid: 4e1b5886b2002af4380da4c2d3783ab2, type: 2}

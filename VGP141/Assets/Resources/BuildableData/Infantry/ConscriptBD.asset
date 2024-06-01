@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f0772f0df8fee44815db5846e480ac, type: 3}
+  m_Name: ConscriptBD
+  m_EditorClassIdentifier: 
+  _playerFacingName: 
+  _unitType: 0
+  _buildTime: 1
+  _viewPrefab: {fileID: 8382213688608663498, guid: 4c416719775ba564b968471f308a7889,
+    type: 3}
+  _dependencies:
+  - {fileID: 11400000, guid: b70a874946bdf4141a8dc7f09cf751bd, type: 2}

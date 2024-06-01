@@ -8,6 +8,7 @@ namespace UI
 {
     public class BuildMenu : MonoBehaviour
     {
+        [SerializeField] private BuildableCountTracker _buildableCountTracker;
         [SerializeField] private BuildQueue _buildQueue;
         [SerializeField] private BuildMenuButton _buildMenuButtonPrefab;
         
@@ -15,7 +16,9 @@ namespace UI
 
         private void Awake()
         {
-            _buildables.AddRange(Resources.LoadAll<BuildableData>("BuildableData"));
+            _buildables.AddRange(Resources.LoadAll<BuildableData>("BuildableData/Buildings"));
+            _buildables.AddRange(Resources.LoadAll<BuildableData>("BuildableData/Infantry"));
+            _buildables.AddRange(Resources.LoadAll<BuildableData>("BuildableData/Vehicles"));
         }
 
         private void Start()
@@ -24,6 +27,7 @@ namespace UI
             {
                 BuildMenuButton buildMenuButton = Instantiate(_buildMenuButtonPrefab, transform);
                 buildMenuButton.Initialize(_buildQueue, buildableData);
+                buildMenuButton.gameObject.SetActive(_buildableCountTracker.CanBeBuilt(buildableData));
             }
         }
     }

@@ -10,9 +10,11 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI _label;
         [SerializeField] private Image _progressImage;
+        [SerializeField] private TextMeshProUGUI _countLabel;
 
         private BuildQueue _buildQueue;
         private BuildableData _buildableData;
+        private uint _queueCount;
 
         public void Initialize(BuildQueue pBuildQueue, BuildableData pBuildableData)
         {
@@ -20,6 +22,7 @@ namespace UI
             _buildableData = pBuildableData;
             _label.text = _buildableData.PlayerFacingName;
             _progressImage.fillAmount = 0;
+            UpdateCountLabel(0);
         }
 
         public void OnPressed()
@@ -32,11 +35,24 @@ namespace UI
             buildRequest.OnRemainingBuildTimeChanged += OnProgressChanged;
             // Give that request to the build queue
             _buildQueue.Enqueue(buildRequest);
+            UpdateCountLabel(++_queueCount);
+        }
+
+        private void UpdateCountLabel(uint pCount)
+        {
+            _countLabel.text = pCount.ToString();
+            _countLabel.gameObject.SetActive(pCount > 1);
         }
 
         private void OnProgressChanged(float pRemainingTime)
         {
             _progressImage.fillAmount = pRemainingTime / _buildableData.BuildTime;
+            if (pRemainingTime != 0)
+            {
+                return;
+            }
+            
+            UpdateCountLabel(--_queueCount);
         }
     }
 }
