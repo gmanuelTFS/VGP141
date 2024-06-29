@@ -11,11 +11,11 @@ namespace VGP23U
         void Start()
         {
             DarkRoast darkRoast = new DarkRoast();
-            Sugar beverageWithSugar = new Sugar(darkRoast);
-            Cream beverageWithCream = new Cream(beverageWithSugar);
+            Sugar sugar = new Sugar(darkRoast);
+            Cream cream = new Cream(sugar);
 
-            Debug.Log($"Beverage Description: {beverageWithCream.Description}");
-            Debug.Log($"Beverage Cost: ${beverageWithCream.Cost}");
+            Debug.Log($"Beverage Description: {cream.Description}");
+            Debug.Log($"Beverage Cost: ${cream.Cost}");
         }
 
         // Update is called once per frame
