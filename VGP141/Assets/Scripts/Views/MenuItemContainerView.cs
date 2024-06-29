@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using VGP23U.DesignPatterns;
@@ -19,10 +20,10 @@ namespace VGP23U
         public Transform Transform => transform;
 
         // this will be manually called by us
-        public void Initialize(string label, List<ICompositeComponent> components)
+        public void Initialize(string label, params ICompositeComponent[] components)
         {
             Label = label;
-            _components = components;
+            _components = components.ToList();
 
             foreach (var item in _components)
             {

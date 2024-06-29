@@ -4,5 +4,7 @@ using UnityEngine;
 
 public abstract class PizzaFactory
 {
+    protected PizzaIngredientFactory _pizzaIngredientFactory;
+    
     public abstract Pizza CreatePizza(string pizzaType);
 }

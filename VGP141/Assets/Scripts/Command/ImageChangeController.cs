@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColourChangeController : MonoBehaviour
+public class ImageChangeController : MonoBehaviour
 {
     [SerializeField] private Image _image;
     private Stack<ICommand> _commands;
@@ -32,6 +32,13 @@ public class ColourChangeController : MonoBehaviour
         ChangeImageColourCommand changeToBlue = new ChangeImageColourCommand(_image, Color.blue);
         _commands.Push(changeToBlue);
         changeToBlue.Execute();
+    }
+
+    public void MultiplyScale(float multiplier)
+    {
+        MultiplyScaleCommand multiplyScaleCommand = new(_image, multiplier);
+        _commands.Push(multiplyScaleCommand);
+        multiplyScaleCommand.Execute();
     }
 
     public void UndoLastCommand()

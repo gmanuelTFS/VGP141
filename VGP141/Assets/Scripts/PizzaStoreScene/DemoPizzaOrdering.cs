@@ -10,7 +10,7 @@ public class DemoPizzaOrdering : MonoBehaviour
         NYPizzaStore nyP = new NYPizzaStore();
         ChicagoPizzaStore cP = new ChicagoPizzaStore();
 
-        nyP.OrderPizza("cheese");
+        Pizza nyCheese = nyP.OrderPizza("cheese");
         nyP.OrderPizza("clam");
         nyP.OrderPizza("veggie");
 

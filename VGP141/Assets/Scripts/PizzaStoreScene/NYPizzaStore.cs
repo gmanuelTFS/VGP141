@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NYPizzaStore : PizzaFactory
 {
-    private PizzaIngredientFactory _pizzaIngredientFactory;
-
     public NYPizzaStore()
     {
         _pizzaIngredientFactory = new NYPizzaIngredientFactory();

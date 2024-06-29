@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using VGP23U.DesignPatterns;
 
@@ -8,6 +9,8 @@ namespace VGP23U
 {
     public class UnitView : MonoBehaviour, IObserver
     {
+        [SerializeField] private MeshRenderer _visual;
+        
         private Health _health;
 
         private void Awake()
@@ -42,6 +45,12 @@ namespace VGP23U
         {
             switch (message)
             {
+                case Messages.HEALTH_MODIFIED when data is float value:
+                    _visual.DOKill(true);
+                    Color originalMaterialColour = _visual.material.color;
+                    _visual.material.color = Color.red;
+                    _visual.material.DOColor(originalMaterialColour, 0.5f);
+                    break;
                 case Messages.HEALTH_AT_ZERO:
                     Debug.Log($"{name} - DEAD");
                     break;
